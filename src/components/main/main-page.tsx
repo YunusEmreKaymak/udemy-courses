@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
@@ -15,13 +15,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import axios from "axios";
 function Copyright() {
+
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Udemy
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -29,12 +30,33 @@ function Copyright() {
   );
 }
 
+
+
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Album() {
+  const [allCards, setAllCards] = useState([]);
+const fetchdata = async () =>  {
+  await fetch("http://localhost:8080/course")
+                  .then(response => response.json())
+                  .then(data => setAllCards(data))
+                  // .then(data => allCards.map((card,index) => console.log(index,card.name)));     
+  
+} 
+  const a = "a";
+  useEffect(() => {
+    fetchdata()
+    console.log("ALLCARDS",allCards);
+  },[a])
+
+  const handleDelete = (props: any) => {
+    console.log("PROPS",props);
+    axios.delete("http://localhost:8080/course/" + props);
+  }
+ 
   return (
     <div>
       <CssBaseline />
@@ -42,7 +64,7 @@ export default function Album() {
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
+            {allCards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
@@ -53,20 +75,20 @@ export default function Album() {
                       // 16:9
                       pt: '56.25%',
                     }}
-                    image="https://source.unsplash.com/random?wallpapers"
+                    image={card.imageUrl}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      {card.name}
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
+                      Price: ${card.price} <br/>
+                      Teacher: {card.ownerName} <br/>
+                      Rate: {card.rate}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
+                    <Button size="small" onClick={()=> handleDelete(card.name)}>Delete</Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -76,17 +98,6 @@ export default function Album() {
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
         <Copyright />
       </Box>
 

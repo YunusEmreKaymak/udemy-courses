@@ -8,12 +8,14 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { TextField } from '@mui/material';
 import { Searchbar } from './searchbar';
+import { AddCourseButton } from './add-course-button';
 export const NavBar = () => {
   return (
     <AppBar position="relative">
       <Toolbar >
             <PositionedMenu />
             <Searchbar />
+            <AddCourseButton />
       </Toolbar>
     </AppBar>
   )

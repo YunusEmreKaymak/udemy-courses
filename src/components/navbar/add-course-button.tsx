@@ -4,17 +4,16 @@ import { useNavigate } from "react-router-dom";
 export const AddCourseButton = () => {
   const navigate = useNavigate();
   const handleClick = () => {
-    console.log(window.location.href);
-    if (window.location.href === "http://localhost:3000/addCourse") {
+    if (localStorage.getItem('url') === "/addCourse") {
       navigate('/');
-    } else if (window.location.href === "http://localhost:3000/") {
+    } else if (localStorage.getItem('url') === "/") {
       navigate('/addCourse');
     }
 
   }
   return (
     <div>
-      {window.location.href === "http://localhost:3000/addCourse" ?
+      {localStorage.getItem('url') === "/addCourse" ?
         <button onClick={handleClick} style={{
           borderRadius: 35,
           backgroundColor: "#f3e5f5",

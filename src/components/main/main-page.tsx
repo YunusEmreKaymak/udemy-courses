@@ -16,6 +16,7 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 function Copyright() {
 
   return (
@@ -38,13 +39,17 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const defaultTheme = createTheme();
 
 export default function Courses() {
+  const location = useLocation()
+  localStorage.setItem('url', location.pathname);
   const [allCards, setAllCards] = useState([]);
 const fetchdata = async () =>  {
-  await fetch("http://localhost:8080/course")
-                  .then(response => response.json())
-                  .then(data => setAllCards(data))
-                  // .then(data => allCards.map((card,index) => console.log(index,card.name)));     
-  
+  try {
+    const response = await fetch("http://localhost:8080/course");
+    const data = await response.json();
+    setAllCards(data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }   
 } 
   const a = "a";
   useEffect(() => {
@@ -60,12 +65,13 @@ const fetchdata = async () =>  {
   return (
     <div>
       <CssBaseline />
+      {allCards.length > 0 ?
       <main>
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {allCards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {allCards.map((card, key) => (
+              <Grid item key={key} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
@@ -75,20 +81,20 @@ const fetchdata = async () =>  {
                       // 16:9
                       pt: '56.25%',
                     }}
-                    image={card.imageUrl}
+                    image={card['imageUrl']}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      {card.name}
+                      {card['name']}
                     </Typography>
                     <Typography>
-                      Price: ${card.price} <br/>
-                      Teacher: {card.ownerName} <br/>
-                      Rate: {card.rate}
+                      Price: ${card['price']}<br/>
+                      Teacher: {card['ownerName']} <br/>
+                      Rate: {card['rate']}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" onClick={()=> handleDelete(card.name)}>Delete</Button>
+                    <Button size="small" onClick={()=> handleDelete(card['name'])}>Delete</Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -96,12 +102,11 @@ const fetchdata = async () =>  {
           </Grid>
         </Container>
       </main>
-      {/* Footer */}
+      : <h1>Loading...</h1>}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
         <Copyright />
       </Box>
 
-      {/* End footer */}
     </div>
   );
 }

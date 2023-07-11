@@ -40,6 +40,7 @@ const defaultTheme = createTheme();
 
 export default function Category() {
     const location = useLocation();
+    localStorage.setItem('url', location.pathname);
     const [allCards, setAllCards] = useState([]);
     const fetchdata = async () => {
         await fetch("http://localhost:8080/course/category/" + location.state)
@@ -48,11 +49,10 @@ export default function Category() {
         // .then(data => allCards.map((card,index) => console.log(index,card.name)));     
 
     }
-    const a = "a";
     useEffect(() => {
         fetchdata()
         console.log("ALLCARDS", allCards);
-    }, [a])
+    }, [location.state])
 
     const handleDelete = (props: any) => {
         console.log("PROPS", props);
@@ -66,8 +66,8 @@ export default function Category() {
                 <Container sx={{ py: 8 }} maxWidth="md">
                     {/* End hero unit */}
                     <Grid container spacing={4}>
-                        {allCards.map((card) => (
-                            <Grid item key={card} xs={12} sm={6} md={4}>
+                        {allCards.map((card, key) => (
+                            <Grid item key={key} xs={12} sm={6} md={4}>
                                 <Card
                                     sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                                 >
@@ -77,20 +77,20 @@ export default function Category() {
                                             // 16:9
                                             pt: '56.25%',
                                         }}
-                                        image={card.imageUrl}
+                                        image={card['imageUrl']}
                                     />
                                     <CardContent sx={{ flexGrow: 1 }}>
                                         <Typography gutterBottom variant="h5" component="h2">
-                                            {card.name}
+                                            {card['name']}
                                         </Typography>
                                         <Typography>
-                                            Price: ${card.price} <br />
-                                            Teacher: {card.ownerName} <br />
-                                            Rate: {card.rate}
+                                            Price: ${card['price']} <br />
+                                            Teacher: {card['ownerName']} <br />
+                                            Rate: {card['rate']}
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small" onClick={() => handleDelete(card.name)}>Delete</Button>
+                                        <Button size="small" onClick={() => handleDelete(card['name'])}>Delete</Button>
                                     </CardActions>
                                 </Card>
                             </Grid>

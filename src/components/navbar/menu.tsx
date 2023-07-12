@@ -15,7 +15,7 @@ export default function PositionedMenu() {
   };
   const handleClose = (props: string) => {
     setAnchorEl(null);
-    navigate("/category",{state:props})
+    navigate("/category", { state: props })
   };
   const purpleTheme = createTheme({ palette: { primary: purple } })
 

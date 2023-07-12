@@ -12,13 +12,13 @@ function App() {
     <div className="App">
       <ThemeProvider theme={defaultTheme}>
         <Router>
-        <NavBar />
-        <Routes>
-          <Route path='/' element={<Course />}></Route> :
-          <Route path='/category' element={<Category />}></Route> :
-          <Route path='/addCourse' element={<AddCourse />}></Route>
-        </Routes>
-      </Router>
+          <NavBar />
+          <Routes>
+            <Route path='/' element={<Course />}></Route> :
+            <Route path='/category' element={<Category />}></Route> :
+            <Route path='/addCourse' element={<AddCourse />}></Route>
+          </Routes>
+        </Router>
       </ThemeProvider>
     </div>
   );

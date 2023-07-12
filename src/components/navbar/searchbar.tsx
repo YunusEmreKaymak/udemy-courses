@@ -6,7 +6,7 @@ export const Searchbar = () => {
   const purpleTheme = createTheme({ palette: { primary: purple } })
 
   const handleChange = (props: any) => {
-    console.log("BBBB",props);
+    console.log("BBBB", props);
   }
 
 
@@ -19,8 +19,8 @@ export const Searchbar = () => {
           fontSize: "18px",
           width: '1200px',
           marginLeft: '15px'
-        }} 
-        onChange={(event) => handleChange(event.target.value)}
+        }}
+          onChange={(event) => handleChange(event.target.value)}
         />
       </ThemeProvider>
     </div>

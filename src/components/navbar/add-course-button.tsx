@@ -1,33 +1,17 @@
-import React from 'react'
-import { useNavigate } from "react-router-dom";
+import React, { MouseEventHandler } from 'react'
 
-export const AddCourseButton = () => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    if (localStorage.getItem('url') === "/addCourse") {
-      navigate('/');
-    } else if (localStorage.getItem('url') === "/") {
-      navigate('/addCourse');
-    }
-
-  }
+interface args {
+  title: string;
+  handleClick: MouseEventHandler<HTMLButtonElement>;
+}
+export const AddCourseButton = ({ title, handleClick }: args) => {
   return (
-    <div>
-      {localStorage.getItem('url') === "/addCourse" ?
-        <button onClick={handleClick} style={{
-          borderRadius: 35,
-          backgroundColor: "#f3e5f5",
-          padding: "18px 36px",
-          fontSize: "18px",
-          marginLeft: '15px'
-        }}>Main Page</button> :
-        <button onClick={handleClick} style={{
-          borderRadius: 35,
-          backgroundColor: "#f3e5f5",
-          padding: "18px 36px",
-          fontSize: "18px",
-          marginLeft: '15px'
-        }}>Add Course</button>}
-    </div>
+    <button onClick={handleClick} style={{
+      borderRadius: 35,
+      backgroundColor: "#f3e5f5",
+      padding: "18px 36px",
+      fontSize: "18px",
+      marginLeft: '15px'
+    }}>{title}</button>
   )
 }

@@ -1,21 +1,21 @@
 import React from 'react'
 import AppBar from '@mui/material/AppBar';
-import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import PositionedMenu from './menu';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { TextField } from '@mui/material';
 import { Searchbar } from './searchbar';
 import { AddCourseButton } from './add-course-button';
+import { useLocation, useNavigate } from 'react-router';
 export const NavBar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const path = location.pathname.toLowerCase();
   return (
     <AppBar position="relative">
       <Toolbar >
-            <PositionedMenu />
-            <Searchbar />
-            <AddCourseButton />
+        <PositionedMenu />
+        <Searchbar />
+        <AddCourseButton handleClick={() => path === "/addcourse" ? navigate("/") : navigate("/addCourse")} title={
+          location.pathname.toLowerCase() === "/addcourse" ? "Ana sayfa" : "Kurs Ekle"} />
       </Toolbar>
     </AppBar>
   )

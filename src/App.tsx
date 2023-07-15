@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AddCourse from './components/addCourse/AddCourse';
 import Category from './components/main/main-page-category';
+import UpdateCourse from './components/addCourse/UpdateCourse';
 function App() {
   const defaultTheme = createTheme();
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path='/' element={<Course />}></Route> :
             <Route path='/category' element={<Category />}></Route> :
             <Route path='/addCourse' element={<AddCourse />}></Route>
+            <Route path='/updateCourse' element={<UpdateCourse />}></Route>
           </Routes>
         </Router>
       </ThemeProvider>

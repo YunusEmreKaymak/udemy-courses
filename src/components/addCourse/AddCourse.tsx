@@ -36,6 +36,7 @@ export default function AddCourse() {
       "ownerName": data.get('ownerName'),
       "price": data.get('price'),
       "imageUrl": data.get('imageUrl'),
+      "category": data.get('category'),
       "rate": 4.7
     };
     axios.post("http://localhost:8080/course", course);
@@ -100,6 +101,17 @@ export default function AddCourse() {
               id="imageUrl"
               autoComplete="imageUrl"
             />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="category"
+              label="Category"
+              type="category"
+              id="category"
+              autoComplete="category"
+            />
+            
 
             <Button
               type="submit"

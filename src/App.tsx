@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AddCourse from './components/addCourse/AddCourse';
 import Category from './components/main/main-page-category';
 import UpdateCourse from './components/addCourse/UpdateCourse';
+import Search from './components/main/main-page-search';
 function App() {
   const defaultTheme = createTheme();
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path='/category' element={<Category />}></Route> :
             <Route path='/addCourse' element={<AddCourse />}></Route>
             <Route path='/updateCourse' element={<UpdateCourse />}></Route>
+            <Route path='/search' element={<Search />}></Route> :
           </Routes>
         </Router>
       </ThemeProvider>
